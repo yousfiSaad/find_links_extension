@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+
+  "name": "Find zip/rar Links on the page",
+  "description": "This extension shows extract zip/rar links from the current page",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html",
+    "default_title": "Click to extract zip/rar hrefs"
+  },
+  "permissions": [
+    "activeTab",
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*",
+        "https://*"
+    ],
+      "js": ["content.js"]
+    }
+  ]
+}
