@@ -1,6 +1,6 @@
 
 function renderStatus(hrefs) {
-  var col = hrefs.reduce(function(prevL, currentHref){
+  var col = hrefs.reduce(function (prevL, currentHref) {
     var currentL = currentHref.length;
     return Math.max(prevL, currentL);
   }, 0);
@@ -19,34 +19,34 @@ function renderStatus(hrefs) {
 }
 
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
+  function (request, sender, sendResponse) {
 
-    if( request.message === "links_found" ) {
+    if (request.message === "links_found") {
 
 
-      var hrefs = request.hrefs.filter(function(href){
+      var hrefs = request.hrefs.filter(function (href) {
 
-        if( typeof href !== 'string'){
+        if (typeof href !== 'string') {
           return false;
         }
 
         var fileExtension = href.split('.').pop();
-        return ( ['zip', 'rar'].indexOf(fileExtension) !== -1 );
+        return (['zip', 'rar'].indexOf(fileExtension) !== -1);
 
       });
       renderStatus(hrefs);
     }
   }
-);
+  );
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
-    chrome.tabs.query({
-      active: true,
-       currentWindow: true
-     }, function(tabs) {
-      var activeTab = tabs[0];
-      chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});
-    });
+  chrome.tabs.query({
+    active: true,
+    currentWindow: true
+  }, function (tabs) {
+    var activeTab = tabs[0];
+    chrome.tabs.sendMessage(activeTab.id, { "message": "clicked_browser_action" });
+  });
 
 });
